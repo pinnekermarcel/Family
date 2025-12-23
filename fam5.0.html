@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Von den Kindern – für die Eltern & Oma ❤️</title>
+  <meta name="description" content="Eine kleine Geschenk-Webseite: von den Kindern für die Eltern und Oma." />
+
+  <style>
+    :root{
+      --bg: #071021;
+      --card: rgba(255,255,255,.08);
+      --card2: rgba(255,255,255,.06);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --line: rgba(255,255,255,.12);
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius: 20px;
+
+      /* Weihnachts-Akzente */
+      --xmas-red: rgba(239, 68, 68, .85);
+      --xmas-green: rgba(34, 197, 94, .85);
+      --xmas-gold: rgba(245, 158, 11, .90);
+    }
+
+    *{ box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      overflow-x: hidden;
+
+      /* Winter/Weihnachts-Hintergrund */
+      background:
+        radial-gradient(900px 520px at 18% 10%, rgba(34,197,94,.18), transparent 60%),
+        radial-gradient(900px 520px at 82% 18%, rgba(239,68,68,.18), transparent 60%),
+        radial-gradient(900px 700px at 50% 92%, rgba(255,255,255,.10), transparent 55%),
+        linear-gradient(180deg, rgba(7,16,33,1) 0%, rgba(7,12,24,1) 100%);
+    }
+
+    /* ===== Schneeschicht (dezent) ===== */
+    .snow{
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .flake{
+      position: absolute;
+      top: -10vh;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.75);
+      filter: blur(.2px);
+      opacity: .9;
+      animation: fall linear infinite;
+    }
+    @keyframes fall{ to{ transform: translateY(120vh); } }
+
+    .wrap{
+      position: relative;
+      z-index: 1;
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 28px 18px 64px;
+    }
+
+    .topbar{
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+      position: sticky; top: 0; z-index: 40;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(7,16,33,.85), rgba(7,16,33,.55));
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 12px 14px;
+      border-radius: 18px;
+      margin: 10px 0 18px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.30);
+      overflow: hidden;
+    }
+
+    /* ===== Lichterkette (oben in der Topbar) ===== */
+    .topbar::before{
+      content:"";
+      position:absolute;
+      left:-20px; right:-20px; top:8px;
+      height: 10px;
+      background:
+        radial-gradient(circle, rgba(245,158,11,.95) 0 4px, transparent 5px) 0 0/38px 10px,
+        radial-gradient(circle, rgba(34,197,94,.95) 0 4px, transparent 5px) 10px 0/38px 10px,
+        radial-gradient(circle, rgba(239,68,68,.95) 0 4px, transparent 5px) 20px 0/38px 10px,
+        radial-gradient(circle, rgba(96,165,250,.95) 0 4px, transparent 5px) 30px 0/38px 10px;
+      opacity: .75;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.35));
+      animation: twinkle 2.6s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes twinkle{
+      0%,100%{ opacity:.70; }
+      50%{ opacity:.95; }
+    }
+
+    .brand{
+      display:flex; gap:10px; align-items:center;
+      font-weight: 750;
+      letter-spacing: .2px;
+    }
+    .badge{
+      width:36px; height:36px; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(34,197,94,.30), rgba(239,68,68,.30));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      display:grid; place-items:center;
+    }
+
+    .card{
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 10px;
+    }
+    @media (max-width: 880px){ .hero{ grid-template-columns: 1fr; } }
+
+    .hero-left{ padding: 26px 22px 22px; }
+
+    .kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-weight: 650;
+      font-size: 13px;
+    }
+    .kicker .dotx{
+      width:8px; height:8px; border-radius:999px;
+      background: linear-gradient(135deg, var(--xmas-green), var(--xmas-red));
+      box-shadow: 0 8px 20px rgba(0,0,0,.35);
+    }
+
+    h1{
+      margin: 14px 0 8px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.05;
+      letter-spacing: -0.8px;
+    }
+
+    .subtitle{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 62ch;
+    }
+
+    .chips{ display:flex; flex-wrap:wrap; gap: 10px; margin-top: 14px; }
+    .chip{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: 13px;
+      color: var(--muted);
+      position: relative;
+      overflow: hidden;
+    }
+    .chip::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(220px 80px at 20% 30%, rgba(34,197,94,.12), transparent 60%),
+                  radial-gradient(220px 80px at 80% 70%, rgba(239,68,68,.12), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .chip b{ color: var(--text); position: relative; z-index: 1; }
+    .chip span{ position: relative; z-index: 1; }
+
+    .hero-right{
+      display:grid; grid-template-rows: 1fr auto; gap: 14px;
+      padding: 18px;
+    }
+
+    .photo{
+      border-radius: calc(var(--radius) - 6px);
+      border: 1px dashed rgba(255,255,255,.22);
+      background:
+        radial-gradient(400px 200px at 30% 20%, rgba(34,197,94,.18), transparent 55%),
+        radial-gradient(400px 200px at 70% 30%, rgba(239,68,68,.18), transparent 55%),
+        rgba(255,255,255,.04);
+      display:grid;
+      place-items:center;
+      padding: 18px;
+      min-height: 210px;
+      text-align:center;
+    }
+    .photo p{ margin: 0; color: var(--muted); }
+    .photo strong{ color: var(--text); }
+
+    .quote{
+      border-radius: calc(var(--radius) - 6px);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      padding: 14px 14px 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      position: relative;
+      overflow: hidden;
+    }
+    .quote::before{
+      content:"✨";
+      position:absolute;
+      right: 12px;
+      top: 10px;
+      opacity:.35;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,.35));
+    }
+    .quote b{ color: var(--text); }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .span-6{ grid-column: span 6; }
+    .span-7{ grid-column: span 7; }
+    .span-5{ grid-column: span 5; }
+    .span-12{ grid-column: span 12; }
+    @media (max-width: 880px){
+      .span-6, .span-7, .span-5{ grid-column: span 12; }
+    }
+
+    .section{ padding: 18px; }
+    .section h2{
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .section h2 .mini{
+      font-size: 14px;
+      opacity:.75;
+    }
+    .section p{ margin: 0; color: var(--muted); line-height: 1.6; }
+
+    .list{
+      margin: 10px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+    .li{
+      display:flex; gap: 10px; align-items:flex-start;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+    }
+    .dot{
+      width: 10px; height: 10px; border-radius: 999px;
+      margin-top: 5px;
+      background: linear-gradient(135deg, rgba(34,197,94,.95), rgba(239,68,68,.95));
+      flex: 0 0 auto;
+      box-shadow: 0 10px 20px rgba(0,0,0,.30);
+    }
+    .li b{ color: var(--text); }
+    .li span{ color: var(--muted); }
+
+    .timeline{ display:grid; gap: 10px; margin-top: 10px; }
+    .trow{
+      display:grid;
+      grid-template-columns: 90px 1fr;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+    }
+    .trow small{ color: rgba(255,255,255,.60); font-weight: 700; }
+
+    .note{
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        linear-gradient(135deg, rgba(34,197,94,.10), rgba(239,68,68,.10));
+      color: rgba(255,255,255,.82);
+      line-height: 1.55;
+    }
+
+    .footer{
+      margin-top: 18px;
+      color: rgba(255,255,255,.55);
+      text-align:center;
+      font-size: 12.5px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Schneeschicht -->
+  <div class="snow" id="snow" aria-hidden="true"></div>
+
+  <div class="wrap">
+
+    <div class="topbar card">
+      <div class="brand">
+        <div class="badge"><span>🎄</span></div>
+        <div>
+          <div style="font-size:14px; opacity:.9;">Von den Kindern – für die Eltern</div>
+
+          <!-- VARIANTE 1 -->
+          <div style="font-size:12px; color: var(--muted); font-weight:650;">
+            Von den Kindern: Marcel, Isabell, Selina, Luisa, Elvin, Katrin, Wladi & Nicole
+            <span style="opacity:.7;">·</span>
+            Für die Eltern: Alexandra, Nikolaj, Antonia, Kolja — und Oma ❤️
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div class="card hero-left">
+        <div class="kicker"><span class="dotx"></span> Ein Danke, das von Herzen kommt</div>
+
+        <h1>Liebe Alexandra, Nikolaj, Antonia, Kolja & liebe Oma,</h1>
+
+        <p class="subtitle">
+          wir wollten euch nicht einfach nur irgendwas schenken – sondern etwas, das zeigt, wie dankbar wir sind.
+          Für eure Geduld, eure Hilfe, euren Rückhalt. Für all die kleinen Dinge, die oft selbstverständlich wirken,
+          aber für uns alles bedeuten. Diese Seite ist unser gemeinsames „Danke“.
+        </p>
+
+        <div class="chips">
+          <div class="chip">⭐ <b>Zusammenhalt</b> – wenn’s drauf ankommt</div>
+          <div class="chip">🫶 <b>Wärme</b> – die ein Zuhause ausmacht</div>
+          <div class="chip">🧭 <b>Richtung</b> – wenn wir sie brauchen</div>
+          <div class="chip">🎁 <b>Kleine Momente</b> – die groß werden</div>
+        </div>
+      </div>
+
+      <div class="card hero-right">
+       <div class="photo" style="padding:0; border-style:solid;">
+  <img src="c:\Users\pinne\OneDrive\Bilder\69adab2d-f477-48c8-9dd9-5d2696435f65.jpg" alt="Familienfoto"
+       style="width:100%; height:100%; object-fit:cover; border-radius: calc(var(--radius) - 6px);" />
+</div>
+
+
+        <!-- QUOTE: NUR RUSSISCH -->
+        <div class="quote">
+          «Самое ценное — не то, что у нас есть, а люди, рядом с которыми чувствуешь себя дома.»<br/>
+          <span style="display:block; margin-top:6px;">— <b>от нас, детей</b> ❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card span-6 section">
+        <h2>3 Dinge, die wir an euch lieben <span class="mini">🎅</span></h2>
+        <ul class="list">
+          <li class="li">
+            <div class="dot"></div>
+            <div><b>Euren Zusammenhalt</b><br/><span>Man spürt: Familie bedeutet bei euch wirklich Familie.</span></div>
+          </li>
+          <li class="li">
+            <div class="dot"></div>
+            <div><b>Eure Fürsorge</b><br/><span>Ihr seid da – nicht nur, wenn es leicht ist.</span></div>
+          </li>
+          <li class="li">
+            <div class="dot"></div>
+            <div><b>Euer Vorbild</b><br/><span>Ihr zeigt uns, wie man mit Herz und Stärke durchs Leben geht.</span></div>
+          </li>
+        </ul>
+
+        <!-- NOTE: NUR RUSSISCH -->
+        <div class="note">
+          Спасибо за любовь, которую не нужно заслуживать. ❤️
+        </div>
+      </div>
+
+      <div class="card span-6 section">
+        <h2>Unsere kleinen Highlights <span class="mini">❄️</span></h2>
+        <p>Ein paar Momente, die sich für uns wie „Familie“ anfühlen:</p>
+
+        <div class="timeline">
+          <div class="trow">
+            <small>🏡</small>
+            <div><b>Dieses Zuhause-Gefühl</b><br/><span style="color:var(--muted);">Wenn man ankommt und merkt: hier passt alles.</span></div>
+          </div>
+          <div class="trow">
+            <small>💬</small>
+            <div><b>Gespräche, die tragen</b><br/><span style="color:var(--muted);">Wenn ein Satz von euch reicht und es wird ruhiger im Kopf.</span></div>
+          </div>
+          <div class="trow">
+            <small>😂</small>
+            <div><b>Lachen, das bleibt</b><br/><span style="color:var(--muted);">Die kleinen Sprüche, das gemeinsame Grinsen – genau das ist’s.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ERSETZT: KEIN TEXTFELD MEHR, STATTDESSEN RUSSISCHES FAMILIENZITAT -->
+      <div class="card span-7 section">
+        <h2>Слова о семье <span class="mini">💛</span></h2>
+
+        <div class="quote" style="margin-top:10px;">
+          «Семья — это не просто слово. Это место, где тебя ждут, понимают и любят.
+          Где можно быть собой — и всё равно быть самым родным.»
+          <br/>
+          <span style="display:block; margin-top:8px;">— <b>для вас</b> ❤️</span>
+        </div>
+
+        <div class="note" style="margin-top:12px;">
+          «Пусть в нашем доме всегда будет тепло, мир и смех. Счастья нам всем — вместе.»
+        </div>
+      </div>
+
+      <div class="card span-5 section">
+        <h2>Unser nächstes gemeinsames Kapitel <span class="mini">☕</span></h2>
+        <p>Ein kleiner Vorschlag — wir machen eins davon zusammen:</p>
+        <ul class="list">
+          <li class="li"><div class="dot"></div><div><b>Kaffee & Kuchen</b><br/><span>Ein Nachmittag nur für uns – ohne Stress.</span></div></li>
+          <li class="li"><div class="dot"></div><div><b>Spaziergang / kleine Tour</b><br/><span>Frische Luft, Zeit zum Reden, Zeit zum Lachen.</span></div></li>
+          <li class="li"><div class="dot"></div><div><b>Familienabend</b><br/><span>Essen + Spiel/Film – einfach zusammen.</span></div></li>
+        </ul>
+      </div>
+
+      <!-- SCHLUSS: NUR RUSSISCH -->
+      <div class="card span-12 section">
+        <h2>В конце <span class="mini">🎄</span></h2>
+        <p style="color: var(--muted); line-height: 1.6; margin: 0;">
+          Спасибо, что вы нас сформировали — не только словами, но и тем, как вы живёте.
+          Мы вас очень любим. ❤️
+        </p>
+
+        <div class="footer">
+          Von den Kindern: Marcel, Isabell, Selina, Luisa, Elvin, Katrin, Wladi & Nicole
+          <span style="opacity:.7;">·</span>
+          Für Alexandra, Nikolaj, Antonia, Kolja & Oma
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Schnee erzeugen (dezent) =====
+    const snow = document.getElementById("snow");
+    const FLAKES = 32; // mehr = dichter, weniger = cleaner
+
+    for (let i = 0; i < FLAKES; i++) {
+      const f = document.createElement("div");
+      f.className = "flake";
+
+      const size = 3 + Math.random() * 5;      // 3..8 px
+      const left = Math.random() * 100;        // vw
+      const dur  = 8 + Math.random() * 10;     // 8..18 s
+      const delay= Math.random() * 8;          // 0..8 s
+
+      f.style.width = size + "px";
+      f.style.height = size + "px";
+      f.style.left = left + "vw";
+      f.style.animationDuration = dur + "s";
+      f.style.animationDelay = (-delay) + "s";
+      f.style.opacity = (0.35 + Math.random() * 0.45).toFixed(2);
+
+      snow.appendChild(f);
+    }
+
+    // FOTO-TIPP:
+    // Ersetze den <div class="photo">...</div> Block durch:
+    // <div class="photo" style="padding:0; border-style:solid;">
+    //   <img src="familie.jpg" alt="Familie"
+    //        style="width:100%; height:100%; object-fit:cover; border-radius: calc(var(--radius) - 6px);" />
+    // </div>
+  </script>
+</body>
+</html>
